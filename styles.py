@@ -6,35 +6,35 @@ def apply_iq_styles():
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;800&display=swap');
     
     .stApp {
-        background: #050A18 !important;
+        background: radial-gradient(circle at top right, #0b101b, #050a18) !important;
         color: white !important;
         font-family: 'Outfit', sans-serif !important;
     }
     
-    /* Modern Gradient Title */
-    .title-text {
-        font-size: 48px !important;
-        font-weight: 800 !important;
-        background: linear-gradient(90deg, #00ADEF 0%, #FFFFFF 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 30px !important;
-    }
-
-    /* Executive Cards */
-    .executive-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(0, 173, 239, 0.3);
-        padding: 25px;
-        border-radius: 15px;
-        margin-bottom: 20px;
-    }
-
-    /* Target Impact spans */
-    .impact-highlight {
+    /* Step Headers */
+    .step-header {
         color: #00ADEF;
+        font-size: 0.9rem;
         font-weight: 700;
-        font-size: 1.1rem;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    /* Selected Button Glow */
+    div[data-testid="stButton"] button:active, div[data-testid="stButton"] button:focus {
+        border-color: #00ADEF !important;
+        box-shadow: 0 0 15px rgba(0, 173, 239, 0.4) !important;
+        background: rgba(0, 173, 239, 0.1) !important;
+    }
+
+    /* Target state highlights in tables */
+    .target-state {
+        color: #00ADEF;
+        font-weight: 800;
+        background: rgba(0, 173, 239, 0.1);
+        padding: 2px 6px;
+        border-radius: 4px;
     }
     </style>
     """, unsafe_allow_html=True)
