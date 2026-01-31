@@ -2,7 +2,7 @@ import google.generativeai as genai
 import streamlit as st
 import re
 
-def run_strategy_engine(friction, anchor):
+def run_strategy_engine(friction, anchor, pivot=None):
     try:
         genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
         model_list = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
@@ -14,40 +14,33 @@ def run_strategy_engine(friction, anchor):
         Context: Meridian Financial Group Discovery.
         Legacy Anchor: {anchor}
         Discovery Notes: "{friction}"
+        {"Strategic Pivot Requested: " + pivot if pivot else ""}
         
-        TASK:
-        1. DIAGNOSIS: Based on the Discovery Notes, identify if the client is an EXPLORER, SCALER, or INNOVATOR.
-        2. BLUEPRINT: Create a Delta 7/28 roadmap (Value Weekly, Foundations Monthly).
-        3. STRANGLER: Explain how we will "wrap" the {anchor} system.
+        REQUIRED OUTPUT (HTML ONLY):
+        1. <div class='aha-box'>
+           <h3>Strategic Diagnosis: [PERSONA]</h3>
+           <p><strong>Clinical Pattern:</strong> [1 sentence linking friction to maturity]</p>
+           </div>
 
-        OUTPUT STRUCTURE (HTML ONLY):
-        <div class='aha-box'>
-          <h3>Strategic Diagnosis: [INSERT PERSONA]</h3>
-          <p><strong>Clinical Pattern:</strong> [1 sentence identifying why they are in this phase based on iqbusiness thought leadership]</p>
-        </div>
+        2. <h3>Mobilisation Blueprint: The Agentic Strangler</h3>
+        <div class='phase-card'><h4>Phase 1: Surround (7 Days)</h4><p>[SUV Win]</p></div>
+        <div class='phase-card'><h4>Phase 2: Synthesize (28 Days)</h4><p>[Gap Closure]</p></div>
 
-        <h3>Mobilisation Blueprint: The Agentic Strangler</h3>
-        <p>Target: Wrapping {anchor} in an AI brain to drive immediate EBIT impact.</p>
-        
-        <div class='phase-card'>
-          <h4>Phase 1: Surround (7 Days)</h4>
-          <p><strong>SUV (Smallest Unit of Value):</strong> [Specific Banking Win for Retail digital channels]</p>
-        </div>
-
-        <div class='phase-card'>
-          <h4>Phase 2: Synthesize (28 Days)</h4>
-          <p><strong>Foundational Gap:</strong> [Identify specific POPIA or Data Readiness gap to close]</p>
-        </div>
-
+        3. <h3>90-Day Outcome & ROI Projection</h3>
         <table>
-          <thead><tr><th>Metric</th><th>Current</th><th>AI Target</th><th>Human-in-the-Loop Gate</th></tr></thead>
+          <thead><tr><th>Metric</th><th>Current</th><th>AI Target</th><th>Logic Path</th></tr></thead>
           <tbody>
-            <tr><td>Processing Velocity</td><td>Manual/Legacy</td><td><span class='target-state'>Real-time</span></td><td>Policy override check</td></tr>
-            <tr><td>Regulatory Confidence</td><td>Risk-averse</td><td><span class='target-state'>Auditable</span></td><td>Final CRO sign-off</td></tr>
+            <tr><td>Revenue Velocity</td><td>Legacy</td><td><span class='target-state'>Accelerated</span></td><td>[1 sentence on EBIT logic]</td></tr>
+            <tr><td>Trust/Risk Score</td><td>Manual</td><td><span class='target-state'>Auditable</span></td><td>[1 sentence on POPIA/CRO logic]</td></tr>
           </tbody>
         </table>
+
+        4. <div style='background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; border: 1px solid #00ADEF;'>
+           <h4>Partnership Logic (The 'Breadcrumb')</h4>
+           <p>[Explain specifically HOW the AI calculated these targets based on the Strangler pattern and Meridian's Mainframe anchor. Mention 'Directional Accuracy'.]</p>
+           </div>
         
-        STRICT: Clinical, high-stakes language. No markdown code blocks or stars.
+        STRICT: Clinical language. No markdown code blocks or stars.
         """
         
         response = model.generate_content(prompt)
