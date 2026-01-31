@@ -33,3 +33,25 @@ if st.button("⚡ ORCHESTRATE STRATEGIC BLUEPRINT", type="primary", use_containe
             result = run_strategy_engine(friction, anchor)
             st.markdown(result, unsafe_allow_html=True)
             st.toast("Blueprint Orchestrated Successfully")
+
+# ORCHESTRATE
+if st.button("⚡ ORCHESTRATE STRATEGIC BLUEPRINT", type="primary", use_container_width=True):
+    if not friction:
+        st.warning("Clinical Tip: Capture symptoms first.")
+    else:
+        with st.spinner("Analyzing tensions..."):
+            st.session_state.result = run_strategy_engine(friction, anchor)
+            st.rerun()
+
+# RENDER OUTPUT & PIVOT BOX
+if "result" in st.session_state:
+    st.markdown(st.session_state.result, unsafe_allow_html=True)
+    
+    st.markdown("---")
+    st.markdown('<p class="step-header">STRATEGY PIVOT: CHALLENGE THE ENGINE</p>', unsafe_allow_html=True)
+    pivot_input = st.text_input("If the CIO disagrees (e.g., 'Too fast for compliance' or 'Focus on cost, not growth'), type it here:")
+    
+    if st.button("RE-ORCHESTRATE STRATEGY"):
+        with st.spinner("Adapting Logic..."):
+            st.session_state.result = run_strategy_engine(friction, anchor, pivot=pivot_input)
+            st.rerun()
