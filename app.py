@@ -6,8 +6,6 @@ from brain import run_strategy_engine
 st.set_page_config(page_title="IQ Intelligence Lab", layout="wide")
 apply_iq_styles()
 
-st.markdown('<h1 class="title-text">Intelligence Lab</h1>', unsafe_allow_html=True)
-
 # app.py update
 st.markdown('<h1 class="title-text">Intelligence Lab</h1>', unsafe_allow_html=True)
 
