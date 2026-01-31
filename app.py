@@ -21,27 +21,18 @@ else:
 st.markdown('<p class="step-header">02 / CAPTURE STRATEGIC SYMPTOMS</p>', unsafe_allow_html=True)
 st.caption("Probe for: PoC fatigue, CRO roadblocks, data residency fears, or team skepticism.")
 friction = st.text_area("Live Discovery Notes (Type CIO's pain here):", 
-                        placeholder="e.g., CRO is blocking mainframe access due to POPIA; pilots are failing to reach production...", 
+                        placeholder="e.g., CRO is blocking mainframe access due to POPIA...", 
                         height=150)
 
-# ORCHESTRATE
-if st.button("⚡ ORCHESTRATE STRATEGIC BLUEPRINT", type="primary", use_container_width=True):
+# PRIMARY ORCHESTRATION BUTTON
+# Added a unique key "main_btn" to prevent duplication errors
+if st.button("⚡ ORCHESTRATE STRATEGIC BLUEPRINT", type="primary", use_container_width=True, key="main_btn"):
     if not friction:
         st.warning("Clinical Tip: You must capture symptoms before the engine can diagnose maturity.")
     else:
         with st.spinner("Analyzing tensions and diagnosing maturity..."):
-            result = run_strategy_engine(friction, anchor)
-            st.markdown(result, unsafe_allow_html=True)
-            st.toast("Blueprint Orchestrated Successfully")
-
-# ORCHESTRATE
-if st.button("⚡ ORCHESTRATE STRATEGIC BLUEPRINT", type="primary", use_container_width=True):
-    if not friction:
-        st.warning("Clinical Tip: Capture symptoms first.")
-    else:
-        with st.spinner("Analyzing tensions..."):
             st.session_state.result = run_strategy_engine(friction, anchor)
-            st.rerun()
+            st.toast("Blueprint Orchestrated Successfully")
 
 # RENDER OUTPUT & PIVOT BOX
 if "result" in st.session_state:
@@ -49,9 +40,10 @@ if "result" in st.session_state:
     
     st.markdown("---")
     st.markdown('<p class="step-header">STRATEGY PIVOT: CHALLENGE THE ENGINE</p>', unsafe_allow_html=True)
-    pivot_input = st.text_input("If the CIO disagrees (e.g., 'Too fast for compliance' or 'Focus on cost, not growth'), type it here:")
+    pivot_input = st.text_input("If the CIO disagrees, type the shift here:", key="pivot_text")
     
-    if st.button("RE-ORCHESTRATE STRATEGY"):
+    # Added a unique key "pivot_btn" to prevent duplication errors
+    if st.button("RE-ORCHESTRATE STRATEGY", key="pivot_btn"):
         with st.spinner("Adapting Logic..."):
             st.session_state.result = run_strategy_engine(friction, anchor, pivot=pivot_input)
             st.rerun()
