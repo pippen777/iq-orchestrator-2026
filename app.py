@@ -8,14 +8,30 @@ apply_iq_styles()
 
 st.markdown('<h1 class="title-text">Intelligence Lab</h1>', unsafe_allow_html=True)
 
-# 01: MATURITY
-st.markdown('<p class="step-header">01 / DIAGNOSE MATURITY</p>', unsafe_allow_html=True)
-if "mat" not in st.session_state: st.session_state.mat = "Explorer"
-m_cols = st.columns(3)
-if m_cols[0].button("EXPLORER", use_container_width=True): st.session_state.mat = "Explorer"
-if m_cols[1].button("SCALER", use_container_width=True): st.session_state.mat = "Scaler"
-if m_cols[2].button("INNOVATOR", use_container_width=True): st.session_state.mat = "Innovator"
-st.caption(f"Currently Modeling: **{st.session_state.mat}**")
+# 01: SYMPTOM-BASED DIAGNOSIS
+st.markdown('<p class="step-header">01 / CAPTURE STRATEGIC SYMPTOMS</p>', unsafe_allow_html=True)
+st.caption("Click the 'Hard Truths' the organization is currently facing:")
+
+# Symptom Grid
+col1, col2 = st.columns(2)
+s1 = col1.checkbox("Struggling with 'PoC fatigue' / Pilot Limbo", help="88% of pilots fail here.")
+s2 = col1.checkbox("Legacy Mainframe/ERP is a 'Data Anchor'", help="Complexity paralysis.")
+s3 = col2.checkbox("CRO/Risk blocking data access (POPIA fear)", help="Governance is a roadblock.")
+s4 = col2.checkbox("AI is seen as an 'IT project', not board strategy", help="Fragmented vision.")
+
+# Logic to determine Persona
+if s1 and s2:
+    st.session_state.mat = "Scaler"
+    st.warning("DIAGNOSIS: SCALER. Trapped in the 'Trough of Despair'.")
+elif s4:
+    st.session_state.mat = "Explorer"
+    st.info("DIAGNOSIS: EXPLORER. Navigating hype vs. substance.")
+elif s1 and s3:
+    st.session_state.mat = "Scaler"
+    st.warning("DIAGNOSIS: SCALER. Operational headwinds identified.")
+else:
+    st.session_state.mat = "Innovator" # Default for advanced users
+    st.success("DIAGNOSIS: INNOVATOR. Ready for Agentic Orchestration.")
 
 # 02: LEGACY ANCHOR
 st.markdown('<p class="step-header">02 / SELECT LEGACY ANCHOR</p>', unsafe_allow_html=True)
