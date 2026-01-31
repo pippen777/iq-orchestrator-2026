@@ -8,9 +8,24 @@ apply_iq_styles()
 
 st.markdown('<h1 class="title-text">Intelligence Lab</h1>', unsafe_allow_html=True)
 
-# 01: SYMPTOM-BASED DIAGNOSIS
-st.markdown('<p class="step-header">01 / CAPTURE STRATEGIC SYMPTOMS</p>', unsafe_allow_html=True)
-st.caption("Click the 'Hard Truths' the organization is currently facing:")
+# app.py update
+st.markdown('<h1 class="title-text">Intelligence Lab</h1>', unsafe_allow_html=True)
+
+# 01: LEGACY ANCHOR (Start with the 'Where')
+st.markdown('<p class="step-header">01 / IDENTIFY THE TECHNICAL ANCHOR</p>', unsafe_allow_html=True)
+anchor = st.selectbox("Which system is causing 'Complexity Paralysis'?", 
+                      ["Legacy Core Banking", "Siloed CRM", "Fragmented ERP", "Other (Custom)"])
+
+# 02: CLINICAL DISCOVERY (The 'Why')
+st.markdown('<p class="step-header">02 / CAPTURE STRATEGIC SYMPTOMS</p>', unsafe_allow_html=True)
+st.caption("Ask the CIO about PoC fatigue, data silos, or governance roadblocks.")
+friction = st.text_area("Live Discovery Notes:", placeholder="Type exactly what the CIO says here...", height=200)
+
+if st.button("⚡ ORCHESTRATE STRATEGIC BLUEPRINT", type="primary", use_container_width=True):
+    with st.spinner("Analyzing tensions and diagnosing maturity..."):
+        # The engine now handles the diagnosis based on the text
+        result = run_strategy_engine("Unknown", friction, anchor) 
+        st.markdown(result, unsafe_allow_html=True)
 
 # Symptom Grid
 col1, col2 = st.columns(2)
