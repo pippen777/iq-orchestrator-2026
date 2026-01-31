@@ -14,9 +14,21 @@ def run_strategy_engine(maturity, friction, anchor):
         model = genai.GenerativeModel(selected_model)
         
         prompt = f"""
-        Role: Senior AI Strategy Partner at IQ Business (Biase De Gregorio style).
-        Context: Meridian Financial Group (Large Bank).
-        Inputs: Maturity={maturity}, Legacy Anchor={anchor}, Strategic Friction={friction}.
+Role: Senior AI Strategy Partner at IQ Business (Biase De Gregorio style).
+Scenario: Meridian Financial Group Discovery.
+Input Friction: "{friction}"
+Technical Anchor: "{anchor}"
+
+TASK:
+1. DIAGNOSIS: Analyze the Friction text. Determine if they are an EXPLORER, SCALER, or INNOVATOR based on iqbusiness personas.
+2. MOBILISATION BLUEPRINT: Create a Delta 7/28 roadmap.
+3. IMPACT TABLE: Generate 2026 banking EBIT targets.
+
+OUTPUT STRUCTURE (HTML ONLY):
+<div class='aha-box'>
+  <h3>Strategic Diagnosis: [INSERT PERSONA HERE]</h3>
+  <p>Pattern Recognized: [1 clinical sentence on why they are that persona]</p>
+</div>
         
         OUTPUT STRUCTURE (HTML ONLY):
         1. <div class='executive-brief'>
